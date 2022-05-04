@@ -1,15 +1,22 @@
-import { useState } from 'react';
-import axios from 'axios';
-const url = 'https://course-api.com/axios-tutorial-post';
+import { useState } from 'react'
+import axios from 'axios'
+const url = 'https://course-api.com/axios-tutorial-post'
 
 const PostRequest = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(name, email);
-  };
+  const handleSubmit = async e => {
+    e.preventDefault()
+
+    try {
+      const { data } = await axios.post(url, { name, email })
+
+      console.log({ data })
+    } catch (error) {
+      console.error(error.response)
+    }
+  }
 
   return (
     <section>
@@ -24,7 +31,7 @@ const PostRequest = () => {
             className='form-input'
             id='name'
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={e => setName(e.target.value)}
           />
         </div>
         <div className='form-row'>
@@ -36,7 +43,7 @@ const PostRequest = () => {
             className='form-input'
             id='email'
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
           />
         </div>
         <button type='submit' className='btn btn-block'>
@@ -44,6 +51,6 @@ const PostRequest = () => {
         </button>
       </form>
     </section>
-  );
-};
-export default PostRequest;
+  )
+}
+export default PostRequest
