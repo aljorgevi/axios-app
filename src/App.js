@@ -1,5 +1,6 @@
 import Title from './components/Title'
-import Setup from './examples/3-post-request'
+import Setup from './examples/4-global-instance'
+import './axios/global' //  instantly invoked
 
 function App() {
   return (
