@@ -30,18 +30,18 @@ npm install axios
 - error in error.response
 
 ```js
-import axios from 'axios'
+import axios from 'axios';
 
 const fetchData = async () => {
-  try {
-    // axios.get(), axios.post(),axios.put(), axios.delete()
-    const response = await axios(url)
+	try {
+		// axios.get(), axios.post(),axios.put(), axios.delete()
+		const response = await axios(url);
 
-    console.log(response)
-  } catch (error) {
-    console.log(error.response)
-  }
-}
+		console.log(response);
+	} catch (error) {
+		console.log(error.response);
+	}
+};
 ```
 
 #### Headers
@@ -53,19 +53,30 @@ const fetchData = async () => {
 - axios.post(url,{data},{})
 
 ```js
+// GET
+axios.get(url, options);
+// POST
+axios.post(url, resource, options);
+// PATCH
+axios.patch(url, resource, options);
+// DELETE
+axios.delete(url, options);
+```
+
+```js
 const fetchDadJoke = async () => {
-  try {
-    const { data } = await axios(url, {
-      headers: {
-        Accept: 'application/json'
-      }
-    })
-    // console.log(data);
-    setJoke(data.joke)
-  } catch (error) {
-    console.log(error.response)
-  }
-}
+	try {
+		const { data } = await axios(url, {
+			headers: {
+				Accept: 'application/json'
+			}
+		});
+		// console.log(data);
+		setJoke(data.joke);
+	} catch (error) {
+		console.log(error.response);
+	}
+};
 ```
 
 #### Post Request
@@ -76,31 +87,31 @@ const fetchDadJoke = async () => {
 
 ```js
 try {
-  const resp = await axios.post(url, { data })
+	const resp = await axios.post(url, { data });
 } catch (error) {
-  console.log(error.response.data)
+	console.log(error.response.data);
 }
 ```
 
 #### Global Defaults
 
 ```js
-axios.defaults.headers.common['Accept'] = 'application/json'
-axios.defaults.baseURL = 'https://api.example.com'
-axios.defaults.headers.common['Authorization'] = AUTH_TOKEN
+axios.defaults.headers.common['Accept'] = 'application/json';
+axios.defaults.baseURL = 'https://api.example.com';
+axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 axios.defaults.headers.post['Content-Type'] =
-  'application/x-www-form-urlencoded'
+	'application/x-www-form-urlencoded';
 ```
 
 #### Custom Instance
 
 ```js
 const authFetch = axios.create({
-  baseURL: 'https://course-api.com',
-  headers: {
-    Accept: 'application/json'
-  }
-})
+	baseURL: 'https://course-api.com',
+	headers: {
+		Accept: 'application/json'
+	}
+});
 ```
 
 #### Interceptors
@@ -109,29 +120,29 @@ const authFetch = axios.create({
 
 ```js
 authFetch.interceptors.request.use(
-  request => {
-    request.headers.common['Accept'] = `application/json`
-    console.log('request sent')
-    // must return request
-    return request
-  },
-  error => {
-    return Promise.reject(error)
-  }
-)
+	request => {
+		request.headers.common['Accept'] = `application/json`;
+		console.log('request sent');
+		// must return request
+		return request;
+	},
+	error => {
+		return Promise.reject(error);
+	}
+);
 
 authFetch.interceptors.response.use(
-  response => {
-    console.log('got response')
-    return response
-  },
-  error => {
-    console.log(error.response)
-    if (error.response.status === 404) {
-      // do something
-      console.log('NOT FOUND')
-    }
-    return Promise.reject(error)
-  }
-)
+	response => {
+		console.log('got response');
+		return response;
+	},
+	error => {
+		console.log(error.response);
+		if (error.response.status === 404) {
+			// do something
+			console.log('NOT FOUND');
+		}
+		return Promise.reject(error);
+	}
+);
 ```
